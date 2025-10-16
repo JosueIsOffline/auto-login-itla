@@ -56,22 +56,21 @@ Visualiza el acumulado de calificaciones por curso en tiempo real.
 ```
 src/
 ├── core/
-│   ├── PluginManager.ts      # Gestor central de plugins
-│   └── lifecycle.ts           # Ciclo de vida y hooks
+│   ├── Plugin.ts              # Gestor central de plugins
+│   └── core.ts                # Ciclo de vida y hooks
 ├── modules/
 │   ├── plugins/
-│   │   ├── AutoLogin.ts       # Plugin de autenticación
-│   │   └── PointsTracker.ts   # Plugin de calificaciones
+│   │   ├── AutoLogin.plugin.ts       # Plugin de autenticación
+│   │   └── PointsTracker.plugin.ts   # Plugin de calificaciones
 │   ├── services/
-│   │   ├── CryptoService.ts   # Servicio de encriptación
-│   │   ├── StorageService.ts  # Gestión de almacenamiento
-│   │   └── DOMService.ts      # Manipulación del DOM
+│   │   ├── Crypto.ts          # Servicio de encriptación
+│   │   ├── MonkeyStorage.ts   # Gestión de almacenamiento
+│   │   └── DOM.ts             # Manipulación del DOM
 │   ├── utils/
 │   │   └── helpers.ts         # Utilidades compartidas
 │   └── shared/
 │       ├── constants.ts       # Constantes globales
-│       └── interfaces.ts      # Definiciones de tipos
-└── main.ts                    # Punto de entrada principal
+└── index.ts                    # Punto de entrada principal
 ```
 
 ### Interfaz de Plugin
