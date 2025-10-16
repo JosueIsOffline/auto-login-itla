@@ -106,15 +106,6 @@ Elige tu navegador:
 - **Safari/Opera**: Disponible en sus respectivas tiendas de extensiones
 
 ### Paso 2: Instalar ITLA Plus
-
-**Método automático (recomendado):**
-
-Haz clic en el siguiente enlace:
-
-**[▶️ Instalar ITLA Plus](https://github.com/JosueIsOffline/itla-plus/releases/latest/download/itla-plus.user.js)**
-
-Tampermonkey abrirá automáticamente la ventana de instalación. Confirma haciendo clic en **"Instalar"**.
-
 **Método manual:**
 
 1. Abre Tampermonkey y selecciona **"Crear un nuevo script"**
