@@ -65,7 +65,7 @@ export class CoursePointsTracker implements Plugin {
         </p>
     `;
 
-    document.addEventListener("click", () => {
+    div.addEventListener("click", () => {
       window.location.href = url;
     });
 

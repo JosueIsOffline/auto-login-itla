@@ -276,7 +276,7 @@
           Acumulado: <span id="custom-grade">0</span>
         </p>
     `;
-            document.addEventListener("click", () => {
+            div.addEventListener("click", () => {
                 window.location.href = url;
             });
             document.body.appendChild(div);
