@@ -2,13 +2,10 @@
 
 Suite modular de herramientas para mejorar la experiencia en la plataforma virtual del ITLA. Desarrollado en TypeScript como un userscript profesional compatible con Tampermonkey y otros gestores.
 
----
-
 ## Descripción General
 
 **ITLA Plus** es una suite de plugins diseñada para optimizar y enriquecer la experiencia del estudiante en la plataforma virtual del ITLA. Su arquitectura modular permite añadir nuevas funcionalidades de forma independiente, sin comprometer los módulos existentes ni el rendimiento general.
 
----
 
 ## Características Principales
 
@@ -19,7 +16,6 @@ Suite modular de herramientas para mejorar la experiencia en la plataforma virtu
 - **100% local**: Sin conexiones externas, todo procesa en tu dispositivo
 - **Máxima compatibilidad**: Tampermonkey, Greasemonkey y Violentmonkey
 
----
 
 ## Plugins Disponibles
 
@@ -46,8 +42,6 @@ Visualiza el acumulado de calificaciones por curso en tiempo real.
   - 🟠 Naranja: 70–79 puntos
   - 🔴 Rojo: Menos de 70 puntos
 - Interfaz minimalista y no intrusiva
-
----
 
 ## Arquitectura Técnica
 
@@ -87,8 +81,6 @@ export interface Plugin {
 
 Esta estructura garantiza consistencia, escalabilidad y facilita el mantenimiento del código.
 
----
-
 ## 📦 Instalación
 
 ### Requisitos Previos
@@ -121,13 +113,9 @@ Tampermonkey abrirá automáticamente la ventana de instalación. Confirma hacie
 4. Pega en el editor de Tampermonkey
 5. Guarda con `Ctrl + S` (o `Cmd + S` en Mac)
 
----
-
 ## Actualizaciones Automáticas
 
 El script está configurado para recibir actualizaciones automáticas. Tampermonkey detectará nuevas versiones y las descargará sin intervención. Tendrás acceso a nuevos plugins y mejoras de forma transparente.
-
----
 
 ## Uso
 
@@ -139,8 +127,6 @@ El script está configurado para recibir actualizaciones automáticas. Tampermon
 
 - Acceso automático sin necesidad de introducir credenciales
 - Points Tracker mostrará tu acumulado al entrar en cada curso
-
----
 
 ## 🔒 Seguridad y Privacidad
 
@@ -157,8 +143,6 @@ El script está configurado para recibir actualizaciones automáticas. Tampermon
 - Usa el script solo en dispositivos personales de confianza
 - Si cambias de dispositivo, elimina las credenciales guardadas desde Tampermonkey
 - No compartas tu dispositivo si tienes credenciales almacenadas
-
----
 
 ## Contribuir
 
@@ -188,8 +172,6 @@ Este proyecto está abierto a contribuciones. Si deseas agregar nuevas funcional
 - Notificaciones de cambios en calificaciones
 - Estadísticas de desempeño por materia
 
----
-
 ## Roadmap
 
 - [ ] Recordatorio de tareas próximas
@@ -197,8 +179,6 @@ Este proyecto está abierto a contribuciones. Si deseas agregar nuevas funcional
 - [ ] Integración con calendario académico
 - [ ] Notificaciones de actualizaciones de calificaciones
 - [ ] Panel de estadísticas por semestre
-
----
 
 ## 🐛 Reportar Problemas
 
@@ -211,15 +191,11 @@ Este proyecto está abierto a contribuciones. Si deseas agregar nuevas funcional
 - Versión del navegador y del script
 - Capturas de pantalla si es relevante
 
----
-
 ## Licencia
 
 MIT License — Uso libre con atribución.
 
 Este es un proyecto independiente no afiliado oficialmente al ITLA.
-
----
 
 ## Autor
 
