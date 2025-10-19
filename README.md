@@ -1,10 +1,10 @@
-# 🚀 UpClass
+# 🚀 ITLA Plus
 
 Suite modular de herramientas para mejorar la experiencia en la plataforma virtual del ITLA. Desarrollado en TypeScript como un userscript profesional compatible con Tampermonkey y otros gestores.
 
 ## Descripción General
 
-**UpClass** es una suite de plugins diseñada para optimizar y enriquecer la experiencia del estudiante en la plataforma virtual del ITLA. Su arquitectura modular permite añadir nuevas funcionalidades de forma independiente, sin comprometer los módulos existentes ni el rendimiento general.
+**ITLA Plus** es una suite de plugins diseñada para optimizar y enriquecer la experiencia del estudiante en la plataforma virtual del ITLA. Su arquitectura modular permite añadir nuevas funcionalidades de forma independiente, sin comprometer los módulos existentes ni el rendimiento general.
 
 
 ## Características Principales
@@ -96,19 +96,19 @@ Elige tu navegador:
 - **Edge**: [Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/tampermonkey)
 - **Safari/Opera**: Disponible en sus respectivas tiendas de extensiones
 
-### Paso 2: Instalar UpClass
+### Paso 2: Instalar ITLA Plus
 **Método automático (recomendado):**
 
 Haz clic en el siguiente enlace:
 
-**[▶️ Instalar UpClass](https://github.com/JosueIsOffline/UpClass/releases/latest/download/up-class.user.js)**
+**[▶️ Instalar ITLA Plus](https://github.com/JosueIsOffline/itla-plus/releases/latest/download/itla-plus.user.js)**
 
 Tampermonkey abrirá automáticamente la ventana de instalación. Confirma haciendo clic en **"Instalar"**.
 
 **Método manual:**
 
 1. Abre Tampermonkey y selecciona **"Crear un nuevo script"**
-2. Descarga el archivo `up-class.user.js` desde [releases](https://github.com/JosueIsOffline/UpClass/releases)
+2. Descarga el archivo `itla-plus.user.js` desde [releases](https://github.com/JosueIsOffline/itla-plus/releases)
 3. Copia el contenido completo del archivo
 4. Pega en el editor de Tampermonkey
 5. Guarda con `Ctrl + S` (o `Cmd + S` en Mac)
