@@ -96,19 +96,19 @@ Elige tu navegador:
 - **Edge**: [Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/tampermonkey)
 - **Safari/Opera**: Disponible en sus respectivas tiendas de extensiones
 
-### Paso 2: Instalar ITLA Plus
+### Paso 2: Instalar UpClass
 **Método automático (recomendado):**
 
 Haz clic en el siguiente enlace:
 
-**[▶️ Instalar UpClass](https://github.com/JosueIsOffline/UpClass/releases/latest/download/itla-plus.user.js)**
+**[▶️ Instalar UpClass](https://github.com/JosueIsOffline/UpClass/releases/latest/download/up-class.user.js)**
 
 Tampermonkey abrirá automáticamente la ventana de instalación. Confirma haciendo clic en **"Instalar"**.
 
 **Método manual:**
 
 1. Abre Tampermonkey y selecciona **"Crear un nuevo script"**
-2. Descarga el archivo `itla-plus.user.js` desde [releases](https://github.com/JosueIsOffline/itla-plus/releases)
+2. Descarga el archivo `up-class.user.js` desde [releases](https://github.com/JosueIsOffline/UpClass/releases)
 3. Copia el contenido completo del archivo
 4. Pega en el editor de Tampermonkey
 5. Guarda con `Ctrl + S` (o `Cmd + S` en Mac)
