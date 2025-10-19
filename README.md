@@ -1,10 +1,10 @@
-# 🚀 ITLA Plus
+# 🚀 UpClass
 
 Suite modular de herramientas para mejorar la experiencia en la plataforma virtual del ITLA. Desarrollado en TypeScript como un userscript profesional compatible con Tampermonkey y otros gestores.
 
 ## Descripción General
 
-**ITLA Plus** es una suite de plugins diseñada para optimizar y enriquecer la experiencia del estudiante en la plataforma virtual del ITLA. Su arquitectura modular permite añadir nuevas funcionalidades de forma independiente, sin comprometer los módulos existentes ni el rendimiento general.
+**UpClass** es una suite de plugins diseñada para optimizar y enriquecer la experiencia del estudiante en la plataforma virtual del ITLA. Su arquitectura modular permite añadir nuevas funcionalidades de forma independiente, sin comprometer los módulos existentes ni el rendimiento general.
 
 
 ## Características Principales
@@ -101,7 +101,7 @@ Elige tu navegador:
 
 Haz clic en el siguiente enlace:
 
-**[▶️ Instalar ITLA Plus](https://github.com/JosueIsOffline/itla-plus/releases/latest/download/itla-plus.user.js)**
+**[▶️ Instalar UpClass](https://github.com/JosueIsOffline/UpClass/releases/latest/download/itla-plus.user.js)**
 
 Tampermonkey abrirá automáticamente la ventana de instalación. Confirma haciendo clic en **"Instalar"**.
 
