@@ -105,6 +105,9 @@
   background: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(4px);
   z-index: 2147483647 !important; /* asegurar que siempre esté arriba */
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
   animation: fadeIn 0.2s ease;
 }
 
