@@ -95,8 +95,8 @@
 /* ============================
    Modal Overlay
 ============================ */
-#modalOverlay {
-  display: flex;
+.modal-overlay {
+  display: none;
   position: fixed !important;
   top: 0;
   left: 0;
@@ -105,9 +105,6 @@
   background: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(4px);
   z-index: 2147483647 !important; /* asegurar que siempre esté arriba */
-  display: flex !important;
-  justify-content: center;
-  align-items: center;
   animation: fadeIn 0.2s ease;
 }
 
