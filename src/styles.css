@@ -95,7 +95,7 @@
 /* ============================
    Modal Overlay
 ============================ */
-.modal-overlay {
+#modalOverlay {
   display: none !important;
   position: fixed !important;
   top: 0;
