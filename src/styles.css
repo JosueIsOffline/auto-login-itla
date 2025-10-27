@@ -1,5 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap");
 
+/* ============================
+   Animaciones
+============================ */
 @keyframes slideIn {
   0% {
     transform: translateX(50px);
@@ -23,6 +26,29 @@
   }
 }
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================
+   Contenedor de puntos (ya lo tenías)
+============================ */
 #custom-container {
   position: fixed;
   top: 3.5rem;
@@ -66,35 +92,47 @@
   animation: countPop 0.5s ease;
 }
 
+/* ============================
+   Modal Overlay
+============================ */
 .modal-overlay {
-  display: none;
-  position: fixed;
+  display: none !important;
+  position: fixed !important;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.4);
+  width: 100vw !important;
+  height: 100vh !important;
+  background: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(4px);
-  z-index: 999999;
+  z-index: 2147483647 !important; /* asegurar que siempre esté arriba */
   animation: fadeIn 0.2s ease;
 }
 
 .modal-overlay.active {
-  display: flex;
+  display: flex !important;
   justify-content: center;
   align-items: center;
 }
 
+/* ============================
+   Modal
+============================ */
 .modal {
-  background: white;
+  position: relative;
+  z-index: 2147483647 !important;
+  background: #fff;
   width: 90%;
   max-width: 560px;
   border-radius: 12px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
   animation: slideUp 0.3s ease;
   overflow: hidden;
+  font-family: "Inter", sans-serif;
 }
 
+/* ============================
+   Modal Header
+============================ */
 .modal-header {
   padding: 24px 28px;
   border-bottom: 1px solid #e8e8e8;
@@ -130,6 +168,9 @@
   color: #1a1a1a;
 }
 
+/* ============================
+   Modal Content
+============================ */
 .modal-content {
   padding: 28px;
 }
@@ -151,6 +192,9 @@
   margin-bottom: 16px;
 }
 
+/* ============================
+   Tarjeta de Integración
+============================ */
 .integration-card {
   border: 1px solid #e8e8e8;
   border-radius: 8px;
@@ -206,6 +250,9 @@
   line-height: 1.5;
 }
 
+/* ============================
+   Estado Conectado
+============================ */
 .status-badge {
   display: inline-flex;
   align-items: center;
@@ -227,6 +274,9 @@
   animation: pulse 5s infinite;
 }
 
+/* ============================
+   Botones
+============================ */
 .integration-actions {
   display: flex;
   gap: 10px;
@@ -274,9 +324,12 @@
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
+/* ============================
+   Placeholder
+============================ */
 .placeholder-section {
   padding: 20px;
   border: 1px dashed #e0e0e0;
@@ -285,25 +338,5 @@
   color: #999;
   font-size: 13px;
   background: #fafafa;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
