@@ -4,339 +4,352 @@
    Animaciones
 ============================ */
 @keyframes slideIn {
-  0% {
-    transform: translateX(50px);
-    opacity: 0;
-  }
-  100% {
-    transform: translateX(0);
-    opacity: 1;
-  }
+	0% {
+		transform: translateX(50px);
+		opacity: 0;
+	}
+	100% {
+		transform: translateX(0);
+		opacity: 1;
+	}
 }
 
 @keyframes countPop {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.15);
-  }
-  100% {
-    transform: scale(1);
-  }
+	0% {
+		transform: scale(1);
+	}
+	50% {
+		transform: scale(1.15);
+	}
+	100% {
+		transform: scale(1);
+	}
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
 }
 
 @keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+	from {
+		opacity: 0;
+		transform: translateY(20px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
 }
 
 /* ============================
    Contenedor de puntos (ya lo tenías)
 ============================ */
 #custom-container {
-  position: fixed;
-  top: 3.5rem;
-  right: 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-family: "Inter", sans-serif;
-  backdrop-filter: blur(10px);
-  background: rgba(255, 255, 255, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-  border-radius: 1rem;
-  padding: 1rem 1.5rem;
-  color: #fff;
-  min-width: 150px;
-  text-align: center;
-  z-index: 1000;
-  animation: slideIn 0.5s ease-out;
-  transition: all 0.3s ease;
+	position: fixed;
+	top: 3.5rem;
+	right: 2rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	font-family: "Inter", sans-serif;
+	backdrop-filter: blur(10px);
+	background: rgba(255, 255, 255, 0.2);
+	border: 1px solid rgba(255, 255, 255, 0.3);
+	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+	border-radius: 1rem;
+	padding: 1rem 1.5rem;
+	color: #fff;
+	min-width: 150px;
+	text-align: center;
+	z-index: 1000;
+	animation: slideIn 0.5s ease-out;
+	transition: all 0.3s ease;
 }
 
 #custom-container:hover {
-  transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
-  cursor: pointer;
+	transform: translateY(-2px) scale(1.02);
+	box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+	cursor: pointer;
 }
 
 #custom-container p {
-  font-size: 1rem;
-  margin: 0;
-  opacity: 0.85;
-  color: #000;
+	font-size: 1rem;
+	margin: 0;
+	opacity: 0.85;
+	color: #000;
 }
 
 #custom-grade {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-top: 0.25rem;
-  animation: countPop 0.5s ease;
+	font-size: 1.5rem;
+	font-weight: bold;
+	margin-top: 0.25rem;
+	animation: countPop 0.5s ease;
 }
 
 /* ============================
    Modal Overlay
 ============================ */
 .custom-modal-overlay {
-  display: none;
-  position: fixed !important;
-  top: 0;
-  left: 0;
-  width: 100vw !important;
-  height: 100vh !important;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(4px);
-  z-index: 2147483647 !important; /* asegurar que siempre esté arriba */
-  animation: fadeIn 0.2s ease;
+	display: none;
+	position: fixed !important;
+	top: 0;
+	left: 0;
+	width: 100vw !important;
+	height: 100vh !important;
+	background: rgba(0, 0, 0, 0.6);
+	backdrop-filter: blur(4px);
+	z-index: 2147483647 !important; /* asegurar que siempre esté arriba */
+	animation: fadeIn 0.2s ease;
 }
 
 .custom-modal-overlay.active {
-  display: flex !important;
-  justify-content: center;
-  align-items: center;
+	display: flex !important;
+	justify-content: center;
+	align-items: center;
 }
 
 /* ============================
    Modal
 ============================ */
 .custom-modal {
-  position: relative;
-  z-index: 2147483647 !important;
-  background: #fff;
-  width: 90%;
-  max-width: 560px;
-  border-radius: 12px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-  animation: slideUp 0.3s ease;
-  overflow: hidden;
-  font-family: "Inter", sans-serif;
+	position: relative;
+	z-index: 2147483647 !important;
+	background: #fff;
+	width: 90%;
+	max-width: 560px;
+	border-radius: 12px;
+	box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+	animation: slideUp 0.3s ease;
+	overflow: hidden;
+	font-family: "Inter", sans-serif;
 }
 
 /* ============================
    Modal Header
 ============================ */
 .custom-modal-header {
-  padding: 24px 28px;
-  border-bottom: 1px solid #e8e8e8;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+	padding: 24px 28px;
+	border-bottom: 1px solid #e8e8e8;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 
 .custom-modal-title {
-  font-size: 18px;
-  font-weight: 600;
-  color: #1a1a1a;
-  letter-spacing: -0.01em;
+	font-size: 18px;
+	font-weight: 600;
+	color: #1a1a1a;
+	letter-spacing: -0.01em;
 }
 
 .custom-close-button {
-  background: none;
-  border: none;
-  font-size: 24px;
-  color: #666;
-  cursor: pointer;
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 6px;
-  transition: all 0.2s ease;
+	background: none;
+	border: none;
+	font-size: 24px;
+	color: #666;
+	cursor: pointer;
+	width: 32px;
+	height: 32px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 6px;
+	transition: all 0.2s ease;
 }
 
 .custom-close-button:hover {
-  background: #f5f5f5;
-  color: #1a1a1a;
+	background: #f5f5f5;
+	color: #1a1a1a;
 }
 
 /* ============================
    Modal Content
 ============================ */
 .custom-modal-content {
-  padding: 28px;
+	padding: 28px;
 }
 
 .custom-section {
-  margin-bottom: 32px;
+	margin-bottom: 32px;
 }
 
 .custom-section:last-child {
-  margin-bottom: 0;
+	margin-bottom: 0;
 }
 
 .custom-section-title {
-  font-size: 13px;
-  font-weight: 600;
-  color: #666;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: 16px;
+	font-size: 13px;
+	font-weight: 600;
+	color: #666;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	margin-bottom: 16px;
 }
 
 /* ============================
    Tarjeta de Integración
 ============================ */
 .custom-integration-card {
-  border: 1px solid #e8e8e8;
-  border-radius: 8px;
-  padding: 20px;
-  transition: all 0.2s ease;
-  background: #fafafa;
+	position: relative;
+	border: 1px solid #e8e8e8;
+	border-radius: 8px;
+	padding: 20px;
+	transition: all 0.2s ease;
+	background: #fafafa;
 }
 
 .custom-integration-card:hover {
-  border-color: #d0d0d0;
-  background: white;
+	border-color: #d0d0d0;
+	background: white;
 }
 
 .custom-integration-header {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin-bottom: 12px;
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	margin-bottom: 12px;
 }
 
 .custom-integration-logo {
-  width: 40px;
-  height: 40px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: white;
-  border: 1px solid #e8e8e8;
-  flex-shrink: 0;
+	width: 40px;
+	height: 40px;
+	border-radius: 8px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: white;
+	border: 1px solid #e8e8e8;
+	flex-shrink: 0;
 }
 
 .custom-integration-logo img {
-  width: 24px;
-  height: 24px;
+	width: 24px;
+	height: 24px;
 }
 
 .custom-integration-info {
-  flex: 1;
+	flex: 1;
 }
 
 .custom-integration-name {
-  font-size: 15px;
-  font-weight: 600;
-  color: #1a1a1a;
-  margin-bottom: 2px;
-  letter-spacing: -0.01em;
+	font-size: 15px;
+	font-weight: 600;
+	color: #1a1a1a;
+	margin-bottom: 2px;
+	letter-spacing: -0.01em;
 }
 
 .custom-integration-description {
-  font-size: 13px;
-  color: #666;
-  line-height: 1.5;
+	font-size: 13px;
+	color: #666;
+	line-height: 1.5;
 }
 
 /* ============================
    Estado Conectado
 ============================ */
 .custom-status-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 4px 10px;
-  background: #f0f9f4;
-  border: 1px solid #d1f0dd;
-  border-radius: 12px;
-  font-size: 12px;
-  font-weight: 500;
-  color: #0d7a3d;
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 4px 10px;
+	background: #f0f9f4;
+	border: 1px solid #d1f0dd;
+	border-radius: 12px;
+	font-size: 12px;
+	font-weight: 500;
+	color: #0d7a3d;
 }
 
 .custom-status-dot {
-  width: 6px;
-  height: 6px;
-  background: #0d7a3d;
-  border-radius: 50%;
-  animation: pulse 5s infinite;
+	width: 6px;
+	height: 6px;
+	background: #0d7a3d;
+	border-radius: 50%;
+	animation: pulse 5s infinite;
 }
 
 /* ============================
    Botones
 ============================ */
 .custom-integration-actions {
-  display: flex;
-  gap: 10px;
-  margin-top: 16px;
+	display: flex;
+	gap: 10px;
+	margin-top: 16px;
 }
 
 .custom-btn {
-  padding: 9px 16px;
-  border-radius: 6px;
-  font-size: 13px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  border: 1px solid #e8e8e8;
-  background: white;
-  color: #1a1a1a;
-  letter-spacing: 0.01em;
+	padding: 9px 16px;
+	border-radius: 6px;
+	font-size: 13px;
+	font-weight: 500;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	border: 1px solid #e8e8e8;
+	background: white;
+	color: #1a1a1a;
+	letter-spacing: 0.01em;
 }
 
 .custom-btn:hover {
-  border-color: #1a1a1a;
-  background: #fafafa;
+	border-color: #1a1a1a;
+	background: #fafafa;
 }
 
 .custom-btn-primary {
-  background: #1a1a1a;
-  color: white;
-  border-color: #1a1a1a;
+	background: #1a1a1a;
+	color: white;
+	border-color: #1a1a1a;
 }
 
 .custom-btn-primary:hover {
-  background: #2a2a2a;
-  border-color: #2a2a2a;
+	background: #2a2a2a;
+	border-color: #2a2a2a;
 }
 
 .custom-btn-danger {
-  color: #dc2626;
-  border-color: #fecaca;
-  background: #fef2f2;
+	color: #dc2626;
+	border-color: #fecaca;
+	background: #fef2f2;
 }
 
 .custom-btn-danger:hover {
-  background: #fee2e2;
-  border-color: #fca5a5;
+	background: #fee2e2;
+	border-color: #fca5a5;
 }
 
 .custom-hidden {
-  display: none !important;
+	display: none !important;
 }
 
 /* ============================
    Placeholder
 ============================ */
 .custom-placeholder-section {
-  padding: 20px;
-  border: 1px dashed #e0e0e0;
-  border-radius: 8px;
-  text-align: center;
-  color: #999;
-  font-size: 13px;
-  background: #fafafa;
+	padding: 20px;
+	border: 1px dashed #e0e0e0;
+	border-radius: 8px;
+	text-align: center;
+	color: #999;
+	font-size: 13px;
+	background: #fafafa;
 }
 
+.custom-new-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #f52f18;
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 3px 8px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
