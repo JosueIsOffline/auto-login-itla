@@ -100,7 +100,9 @@ export class DOM {
     return button;
   }
 
-  public static isOnPage(urlPattern: string): boolean {
+  public static isOnPage(
+    urlPattern: string = "https://plataformavirtual.itla.edu.do/",
+  ): boolean {
     const pattern = urlPattern.replace(/\*/g, ".*").replace(/\?/g, "\\?");
     const regex = new RegExp(pattern);
 

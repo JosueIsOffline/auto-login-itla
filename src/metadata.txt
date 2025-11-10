@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         Auto Login ITLA Dev
+// @name         ITLA Plus Dev
 // @namespace    https://github.com/JosueIsOffline
-// @version      1.0.0
-// @description  Automatiza el proceso de inicio de sesión en ITLA con encriptación de credenciales
+// @version      X.Y.Z
+// @description  Suite modular de herramientas para mejorar la experiencia en la plataforma virtual del ITLA.
 // @author       JosueIsOffline
 // @match        https://plataformavirtual.itla.edu.do/*
 // @grant        GM_registerMenuCommand
@@ -13,7 +13,7 @@
 // @grant        GM_addStyle
 // @connect      raw.githubusercontent.com
 // @require      https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js
-// @resource     INTERNAL_CSS https://raw.githubusercontent.com/JosueIsOffline/auto-login-itla/refs/heads/main/styles.css
+// @resource     INTERNAL_CSS https://raw.githubusercontent.com/JosueIsOffline/itla-plus/main/src/styles.css
 // @updateURL    https://github.com/JosueIsOffline/itla-plus/releases/latest/download/itla-plus.user.js
 // @downloadURL  https://github.com/JosueIsOffline/itla-plus/releases/latest/download/itla-plus.user.js
 // @run-at       document-idle

@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         Auto Login ITLA Dev
+// @name         ITLA Plus Dev
 // @namespace    https://github.com/JosueIsOffline
-// @version      1.1.0
-// @description  Automatiza el proceso de inicio de sesión en ITLA con encriptación de credenciales
+// @version      1.2.0-beta
+// @description  Suite modular de herramientas para mejorar la experiencia en la plataforma virtual del ITLA.
 // @author       JosueIsOffline
 // @match        https://plataformavirtual.itla.edu.do/*
 // @grant        GM_registerMenuCommand
@@ -13,7 +13,7 @@
 // @grant        GM_addStyle
 // @connect      raw.githubusercontent.com
 // @require      https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js
-// @resource     INTERNAL_CSS https://raw.githubusercontent.com/JosueIsOffline/auto-login-itla/refs/heads/main/styles.css
+// @resource     INTERNAL_CSS https://raw.githubusercontent.com/JosueIsOffline/itla-plus/main/src/styles.css
 // @updateURL    https://github.com/JosueIsOffline/itla-plus/releases/latest/download/itla-plus.user.js
 // @downloadURL  https://github.com/JosueIsOffline/itla-plus/releases/latest/download/itla-plus.user.js
 // @run-at       document-idle
@@ -108,7 +108,7 @@
             }
             return button;
         }
-        static isOnPage(urlPattern) {
+        static isOnPage(urlPattern = "https://plataformavirtual.itla.edu.do/") {
             const pattern = urlPattern.replace(/\*/g, ".*").replace(/\?/g, "\\?");
             const regex = new RegExp(pattern);
             return regex.test(window.location.href);
@@ -164,14 +164,89 @@
         }
     }
 
-    function getOrCreateKey() {
-        let deviceFingerPrint = navigator.userAgent + navigator.language + screen.width + screen.height;
-        return Crypto.hash(deviceFingerPrint);
+    class GoogleAuth {
+        workerUrl;
+        storage = new MonkeyStorage();
+        TOKEN_STORAGE_KEY = "googleTokenData";
+        TOKEN_BUFFER = 5 * 60 * 1000;
+        constructor(workerUrl) {
+            this.workerUrl = workerUrl;
+        }
+        async loadStoredToken() {
+            const stored = await this.storage.get(this.TOKEN_STORAGE_KEY);
+            if (stored) {
+                try {
+                    return JSON.parse(stored);
+                }
+                catch (e) {
+                    console.error("Error parseando token almacenado:", e);
+                }
+            }
+            return null;
+        }
+        async saveToken(token, expiresIn = 3600) {
+            const tokenData = {
+                token: token,
+                expiresAt: Date.now() + expiresIn * 1000,
+            };
+            await this.storage.set(this.TOKEN_STORAGE_KEY, JSON.stringify(tokenData));
+        }
+        requestAccess() {
+            window.open(`${this.workerUrl}/auth/start`, "LoginGoogle");
+        }
+        async refreshToken() {
+            try {
+                const res = await fetch(`${this.workerUrl}/refresh`);
+                const data = await res.json();
+                if (data.access_token) {
+                    await this.saveToken(data.access_token, data.expires_in || 3600);
+                    return data.access_token;
+                }
+            }
+            catch (error) {
+                console.error("Error while refreshing token:", error);
+            }
+            return null;
+        }
+        async getValidToken() {
+            const stored = await this.loadStoredToken();
+            if (stored && stored.expiresAt > Date.now() + this.TOKEN_BUFFER) {
+                return stored.token;
+            }
+            return await this.refreshToken();
+        }
     }
 
-    const ENCRYPTION_KEY = getOrCreateKey();
     const STORAGE_USER = "itlaUser";
     const STORAGE_PASS = "itlaPass";
+    const WORKER_URL = "https://google-auth.itla-plus.workers.dev";
+    const SVG = {
+        TRASH: `<svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24">
+	<g fill="none" stroke="#df0b0b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+		<path stroke-dasharray="24" stroke-dashoffset="24" d="M12 20h5c0.5 0 1 -0.5 1 -1v-14M12 20h-5c-0.5 0 -1 -0.5 -1 -1v-14">
+			<animate fill="freeze" attributeName="stroke-dashoffset" dur="0.4s" values="24;0" />
+		</path>
+		<path stroke-dasharray="20" stroke-dashoffset="20" d="M4 5h16">
+			<animate fill="freeze" attributeName="stroke-dashoffset" begin="0.4s" dur="0.2s" values="20;0" />
+		</path>
+		<path stroke-dasharray="8" stroke-dashoffset="8" d="M10 4h4M10 9v7M14 9v7">
+			<animate fill="freeze" attributeName="stroke-dashoffset" begin="0.6s" dur="0.2s" values="8;0" />
+		</path>
+	</g>
+</svg>`,
+    };
+
+    async function getOrCreateKey() {
+        const storage = new MonkeyStorage();
+        let encryptionKey = await storage.get("encryptionKey");
+        if (!encryptionKey) {
+            let deviceFingerPrint = navigator.userAgent + navigator.language + screen.width + screen.height;
+            encryptionKey = Crypto.hash(deviceFingerPrint);
+            await storage.set("encryptionKey", encryptionKey);
+            return encryptionKey;
+        }
+        return encryptionKey;
+    }
 
     class AutoLogin {
         name = "AutoLogin";
@@ -181,12 +256,14 @@
         }
         async init() {
             const creds = await this.asycAskCredentials();
-            if (creds)
+            if (creds) {
                 this.login(creds);
+            }
         }
         async asycAskCredentials() {
             let user = await this.storage.get(STORAGE_USER);
             let pass = await this.storage.get(STORAGE_PASS);
+            const ENCRYPTION_KEY = await getOrCreateKey();
             if (user && pass) {
                 user = Crypto.decrypt(user, ENCRYPTION_KEY);
                 pass = Crypto.decrypt(pass, ENCRYPTION_KEY);
@@ -229,6 +306,163 @@
                     loginBtn.click();
                 }, 200);
             }
+        }
+    }
+
+    class ExportAssignments {
+        name = "ExportAssignments";
+        token;
+        url = "https://plataformavirtual.itla.edu.do/calendar/view.php?view=upcoming";
+        storage = new MonkeyStorage();
+        exported = [];
+        constructor(token) {
+            this.token = token;
+        }
+        shouldRun() {
+            return !!this.token && DOM.isOnPage();
+        }
+        async init() {
+            if (!this.token) {
+                console.warn(`[${this.name}] Token unavailable, we cannot export assignments`);
+                return;
+            }
+            const assignments = await this.getAssignments();
+            let countEvents = 0;
+            for (const a of assignments) {
+                if (!(await this.isAlreadyExported(a.id))) {
+                    const event = this.mapAssignmentToEvent(a);
+                    if (event) {
+                        await this.createCalendarEvent(this.token, event);
+                        await this.markAsExported(a.id);
+                        countEvents++;
+                    }
+                }
+            }
+            console.log(`[${this.name}] ${countEvents} events created`);
+        }
+        async getOrCreateCalendar(token) {
+            const savedId = (await this.storage.get("itlaCalendarId"));
+            if (savedId) {
+                console.info(`[${this.name}] Using existing calendar: ${savedId}`);
+                return savedId;
+            }
+            const res = await fetch("https://www.googleapis.com/calendar/v3/calendars", {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    summary: "ITLA Plus - Asignaciones",
+                    description: "Calendario automático con tareas de la plataforma ITLA",
+                    timeZone: "America/Santo_Domingo",
+                }),
+            });
+            if (!res.ok) {
+                throw new Error(`Error while creating calendar: ${await res.text()}`);
+            }
+            const newCalendar = await res.json();
+            const calendarId = newCalendar.id;
+            await this.storage.set("itlaCalendarId", calendarId);
+            console.log(`[${this.name}] Calendar created succesfully: ${calendarId}`);
+            return calendarId;
+        }
+        async getAssignments() {
+            try {
+                const data = await GM.xmlHttpRequest({ method: "GET", url: this.url });
+                const parse = new DOMParser();
+                const doc = parse.parseFromString(data.responseText, "text/html");
+                const assignmentsList = Array.from(doc.querySelectorAll('.eventlist [data-type="event"]'));
+                const assignments = this.serializeAssingments(assignmentsList);
+                return assignments;
+            }
+            catch (err) {
+                console.error(`[${this.name}] Something went wrong:`, err);
+                return [];
+            }
+        }
+        serializeAssingments(assignments) {
+            return assignments.map((assignment) => {
+                const dateLink = assignment.querySelector('a[href*="calendar/view.php?view=day&time="]');
+                let date = null;
+                if (dateLink) {
+                    const url = new URL(dateLink.href);
+                    const timeParam = url.searchParams.get("time");
+                    if (timeParam) {
+                        date = new Date(parseInt(timeParam, 10) * 1000);
+                    }
+                }
+                const links = Array.from(assignment.querySelectorAll(".card-body a"));
+                const lastLink = links[links.length - 1];
+                return {
+                    id: assignment.getAttribute("data-event-id"),
+                    title: assignment.getAttribute("data-event-title"),
+                    description: assignment.querySelector(".description-content")?.innerHTML ?? "",
+                    courseId: assignment.getAttribute("data-course-id"),
+                    courseName: lastLink ? lastLink.innerText : null,
+                    date,
+                    link: assignment.querySelector(".card-footer a")?.href ??
+                        "",
+                };
+            });
+        }
+        mapAssignmentToEvent(a) {
+            if (!a.date)
+                return null;
+            const dueDate = a.date;
+            let startDate = new Date(dueDate.getTime() - 2 * 60 * 60 * 1000);
+            if (startDate < new Date()) {
+                startDate = new Date();
+            }
+            return {
+                summary: a.title || "Asignación sin título",
+                description: `${a.courseName ?? ""}\n\n${a.description ?? ""}\n\nLink: ${a.link ?? ""}`,
+                start: {
+                    dateTime: startDate.toISOString(),
+                    timeZone: "America/Santo_Domingo",
+                },
+                end: {
+                    dateTime: dueDate.toISOString(),
+                    timeZone: "America/Santo_Domingo",
+                },
+                reminders: {
+                    useDefault: false,
+                    overrides: [
+                        { method: "email", minutes: 48 * 60 },
+                        { method: "popup", minutes: 60 * 2 },
+                    ],
+                },
+            };
+        }
+        async createCalendarEvent(token, event) {
+            const calendarId = await this.getOrCreateCalendar(token);
+            const res = await fetch(`https://www.googleapis.com/calendar/v3/calendars/${calendarId}/events`, {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(event),
+            });
+            if (!res.ok) {
+                const error = await res.json();
+                if (error.error?.code === 409) {
+                    console.log(`[${this.name}] Duplicate event, already exist.`);
+                }
+                console.error(`[${this.name}] Error creating event:`, error);
+            }
+            else {
+                console.log(`[${this.name}] Events created:`, await res.json());
+            }
+        }
+        async isAlreadyExported(id) {
+            this.exported = (await this.storage.get("exportedAssignments", [])) || [];
+            return this.exported.includes(id);
+        }
+        async markAsExported(id) {
+            this.exported = (await this.storage.get("exportedAssignments", [])) || [];
+            this.exported.push(id);
+            await this.storage.set("exportedAssignments", this.exported);
         }
     }
 
@@ -334,17 +568,218 @@
         }
     }
 
+    class UI {
+        static instances = new Map();
+        static render(component) {
+            const existing = this.instances.get(component.id);
+            if (!existing) {
+                component.mount();
+                this.instances.set(component.id, component);
+            }
+            else {
+                existing.update();
+            }
+        }
+        static unmount(id) {
+            const comp = this.instances.get(id);
+            if (comp) {
+                comp.unmount();
+                this.instances.delete(id);
+            }
+        }
+        static toggle(component) {
+            const existing = this.instances.get(component.id);
+            if (existing) {
+                this.unmount(component.id);
+            }
+            else {
+                this.render(component);
+            }
+        }
+    }
+
+    class UIComponent {
+        id;
+        root = null;
+        constructor(id) {
+            this.id = id;
+        }
+        mount() {
+            if (!this.root) {
+                this.root = this.render();
+                this.root.id = this.id;
+                document.body.appendChild(this.root);
+                this.onMount(this.root);
+            }
+            // return this.root;
+        }
+        update() {
+            if (!this.root)
+                return;
+            const newNode = this.render();
+            this.root.replaceWith(newNode);
+            this.root = newNode;
+            this.onUpdate();
+        }
+        unmount() {
+            if (this.root) {
+                this.onUnmount();
+                this.root.remove();
+                this.root = null;
+            }
+        }
+        async onMount(root) { }
+        onUpdate() { }
+        onUnmount() { }
+    }
+
+    class SettingsModal extends UIComponent {
+        googleAuth;
+        storage;
+        constructor(auth, storage) {
+            super("settingsModal");
+            this.googleAuth = auth;
+            this.storage = storage;
+        }
+        render() {
+            const modalOverlay = document.createElement("div");
+            modalOverlay.id = `${this.id}-modal`;
+            modalOverlay.className = "custom-modal-overlay active";
+            modalOverlay.innerHTML = `
+    <div class="custom-modal">
+      <div class="custom-modal-header">
+        <h2 class="custom-modal-title">Configuración</h2>
+        <button class="custom-close-button" id="closeBtn">&times;</button>
+      </div>
+      <div class="custom-modal-content">
+        <div class="custom-section">
+          <h3 class="custom-section-title">Opciones</h3>
+          <div class="custom-option-section">
+            <p>Borrar credenciales guardadas</p>
+            <button id="deleteBtn" class="custom-close-button custom-btn-danger">
+              ${SVG.TRASH}
+            </button>
+          </div>
+        </div>
+
+        <div class="custom-section">
+          <h3 class="custom-section-title">Integraciones</h3>
+          <div class="custom-integration-card">
+            <div class="custom-new-badge">
+              <span>new</span>
+            </div>
+            <div class="custom-integration-header">
+              <div class="custom-integration-logo">
+                <img src="https://www.gstatic.com/images/branding/product/1x/calendar_2020q4_48dp.png" alt="Google Calendar">
+              </div>
+              <div class="custom-integration-info">
+                <div class="custom-integration-name">Google Calendar</div>
+                <div class="custom-integration-description">Sincroniza tus asignaciones</div>
+              </div>
+              <div id="statusBadge" class="custom-status-badge custom-hidden">
+                <span class="custom-status-dot"></span> Conectado
+              </div>
+            </div>
+            <div class="custom-integration-actions">
+              <button id="connectBtn" class="custom-btn custom-btn-primary">Conectar con Google</button>
+              <button id="disconnectBtn" class="custom-btn custom-btn-danger custom-hidden">Cerrar sesión</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+            modalOverlay.querySelector("#closeBtn")?.addEventListener("click", () => {
+                UI.unmount(this.id);
+            });
+            modalOverlay
+                .querySelector("#deleteBtn")
+                ?.addEventListener("click", async () => {
+                await this.deleteCredentials();
+            });
+            modalOverlay.querySelector("#connectBtn")?.addEventListener("click", () => {
+                this.connectToGoogle(modalOverlay);
+            });
+            modalOverlay
+                .querySelector("#disconnectBtn")
+                ?.addEventListener("click", () => {
+                this.disconnectFromGoogle(modalOverlay);
+            });
+            return modalOverlay;
+        }
+        async onMount(root) {
+            const storedToken = await this.storage.get("googleTokenData");
+            if (storedToken) {
+                this.toggleConnection(root, true);
+            }
+            else {
+                this.toggleConnection(root, false);
+            }
+        }
+        async toggleConnection(root, connected) {
+            const connectBtn = root.querySelector("#connectBtn");
+            const disconnectBtn = root.querySelector("#disconnectBtn");
+            const statusBadge = root.querySelector("#statusBadge");
+            const newBadge = root.querySelector(".custom-new-badge");
+            if (connected) {
+                connectBtn?.classList.add("custom-hidden");
+                disconnectBtn?.classList.remove("custom-hidden");
+                statusBadge?.classList.remove("custom-hidden");
+                newBadge?.classList.add("custom-hidden");
+            }
+            else {
+                connectBtn?.classList.remove("custom-hidden");
+                disconnectBtn?.classList.add("custom-hidden");
+                statusBadge?.classList.add("custom-hidden");
+                newBadge?.classList.remove("custom-hidden");
+            }
+        }
+        async deleteCredentials() {
+            await this.storage.set(STORAGE_USER, null);
+            await this.storage.set(STORAGE_PASS, null);
+            alert("Credenciales borradas. Recarga la página para ingresar nuevas.");
+        }
+        connectToGoogle(root) {
+            this.googleAuth.requestAccess();
+            const handler = async (event) => {
+                if (event.origin.includes("workers.dev")) {
+                    const tokens = event.data;
+                    await this.storage.set("googleTokenData", tokens);
+                    this.toggleConnection(root, true);
+                    window.removeEventListener("message", handler);
+                }
+            };
+            window.addEventListener("message", handler);
+        }
+        async disconnectFromGoogle(root) {
+            await this.storage.remove("googleTokenData");
+            this.toggleConnection(root, false);
+        }
+    }
+
     const mStorage = new MonkeyStorage();
+    const auth = new GoogleAuth(WORKER_URL);
     const style = GM_getResourceText("INTERNAL_CSS");
     GM_addStyle(style);
-    GM_registerMenuCommand("🗑 Borrar credenciales guardadas", async () => {
-        await mStorage.set(STORAGE_USER, null);
-        await mStorage.set(STORAGE_PASS, null);
-        alert("Credenciales borradas. Recarga la página para ingresar nuevas.");
+    GM_registerMenuCommand("⚙️ Configuración ITLA Plus", () => {
+        const modal = new SettingsModal(auth, mStorage);
+        modal.mount();
+        UI.toggle(modal);
     });
     (async () => {
+        const existingToken = await mStorage.get("googleTokenData");
+        let token = existingToken ? await auth.getValidToken() : null;
+        if (token) {
+            setInterval(async () => {
+                token = await auth.getValidToken();
+            }, 50 * 60 * 1000);
+        }
         const core = new Core();
-        core.register([new AutoLogin(), new CoursePointsTracker()]);
+        core.register([
+            new AutoLogin(),
+            new CoursePointsTracker(),
+            new ExportAssignments(token),
+        ]);
         await core.init();
     })();
 

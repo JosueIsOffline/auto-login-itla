@@ -1,8 +1,8 @@
 {
   "name": "itla-plus",
-  "version": "1.1.1",
+  "version": "1.2.0-beta",
   "description": "Un userscript para automatizar el proceso de inicio de sesión en la plataforma virtual del ITLA (Instituto Tecnológico de Las Américas).",
-  "main": "auto-login-itla.user.js",
+  "main": "itla-plus.user.js",
   "scripts": {
     "start": "node dist/script.user.js",
     "build": "rollup -c",
@@ -10,16 +10,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/JosueIsOffline/auto-login-itla.git"
+    "url": "git+https://github.com/JosueIsOffline/itla-plus.git"
   },
   "keywords": [],
   "author": "JosueIsOffline",
   "license": "MIT",
   "type": "module",
   "bugs": {
-    "url": "https://github.com/JosueIsOffline/auto-login-itla/issues"
+    "url": "https://github.com/JosueIsOffline/itla-plus/issues"
   },
-  "homepage": "https://github.com/JosueIsOffline/auto-login-itla#readme",
+  "homepage": "https://github.com/JosueIsOffline/itla-plus#readme",
   "devDependencies": {
     "@rollup/plugin-typescript": "^12.1.4",
     "@types/node": "^24.7.2",
