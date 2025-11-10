@@ -43,6 +43,21 @@ Visualiza el acumulado de calificaciones por curso en tiempo real.
   - 🔴 Rojo: Menos de 70 puntos
 - Interfaz minimalista y no intrusiva
 
+### 🗓️ Export Assignments  
+Sincroniza automáticamente tus asignaciones con **Google Calendar** para recibir recordatorios antes de la fecha de entrega.
+
+**Características:**
+- Creación automática de eventos para cada asignación del aula virtual  
+- Recordatorios por correo (2 días antes) y notificación emergente (2 horas antes)  
+- Sincronización segura mediante **OAuth 2.0**  
+- Integración transparente con tu cuenta de Google  
+
+> [!WARNING]  
+> Esta integración utiliza un permiso sensible de Google Calendar.  
+> Es posible que al iniciar sesión, Google muestre una advertencia indicando que la aplicación no ha sido verificada aún.  
+> Puedes continuar de forma segura: ITLA Plus **solo accede a tu calendario personal para crear eventos académicos**  
+> y **no almacena ni comparte tus datos**.
+
 ## Arquitectura Técnica
 
 ### Estructura del Proyecto
