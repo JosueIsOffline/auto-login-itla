@@ -196,6 +196,7 @@
    Tarjeta de Integración
 ============================ */
 .custom-integration-card {
+  position: relative;
   border: 1px solid #e8e8e8;
   border-radius: 8px;
   padding: 20px;
@@ -340,3 +341,34 @@
   background: #fafafa;
 }
 
+.custom-new-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #f52f18;
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 3px 8px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.custom-option-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid #e0e0e0;
+  text-align: left;
+  font-size: 13px;
+  background: #fafafa;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.custom-option-section p {
+  color: #222423;
+  margin: 0;
+}
