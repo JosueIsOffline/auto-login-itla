@@ -178,22 +178,6 @@ Este proyecto está abierto a contribuciones. Si deseas agregar nuevas funcional
 - Verifica que no afecte el rendimiento de otros plugins
 - Documenta cualquier dependencia nueva que agregues
 
-### Ideas para Nuevos Plugins
-
-- Recordatorio de tareas académicas próximas
-- Exportador de calificaciones en CSV
-- Calendario académico integrado
-- Notificaciones de cambios en calificaciones
-- Estadísticas de desempeño por materia
-
-## Roadmap
-
-- [ ] Recordatorio de tareas próximas
-- [ ] Exportador de calificaciones en CSV
-- [ ] Integración con calendario académico
-- [ ] Notificaciones de actualizaciones de calificaciones
-- [ ] Panel de estadísticas por semestre
-
 ## 🐛 Reportar Problemas
 
 ¿Encontraste un bug o tienes una sugerencia? Abre un issue en [GitHub Issues](https://github.com/JosueIsOffline/itla-plus/issues).
