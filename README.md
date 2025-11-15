@@ -55,8 +55,7 @@ Sincroniza automáticamente tus asignaciones con **Google Calendar** para recibi
 > [!WARNING]  
 > Esta integración utiliza un permiso sensible de Google Calendar.  
 > Es posible que al iniciar sesión, Google muestre una advertencia indicando que la aplicación no ha sido verificada aún.  
-> Puedes continuar de forma segura: ITLA Plus **solo accede a tu calendario personal para crear eventos académicos**  
-> y **no almacena ni comparte tus datos**.
+> Puedes continuar de forma segura: ITLA Plus **solo accede a tu calendario personal para crear eventos académicos** y **no almacena ni comparte tus datos**.
 
 ## Arquitectura Técnica
 
