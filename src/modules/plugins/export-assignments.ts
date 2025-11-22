@@ -43,11 +43,36 @@ export class ExportAssignments implements Plugin {
     console.log(`[${this.name}] ${countEvents} events created`);
   }
 
+  private async getCalendar(): Promise<string> {
+    const res = await fetch(
+      "https://www.googleapis.com/calendar/v3/users/me/calendarList",
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${this.token}`,
+        },
+      },
+    );
+
+    if (!res.ok) {
+      throw new Error(
+        `Error while trying to get calendar list: ${await res.text()}`,
+      );
+    }
+
+    const data = await res.json();
+    const calendar = data.items.find((c: any) =>
+      c.summary.includes("ITLA Plus"),
+    );
+
+    return calendar ? calendar.id : "";
+  }
+
   private async getOrCreateCalendar(token: string): Promise<string> {
-    const savedId = (await this.storage.get("itlaCalendarId")) as string;
-    if (savedId) {
-      console.info(`[${this.name}] Using existing calendar: ${savedId}`);
-      return savedId;
+    let calendarId = await this.getCalendar();
+    if (calendarId) {
+      // console.info(`[${this.name}] Using existing calendar: ${calendarId}`);
+      return calendarId;
     }
 
     const res = await fetch(
@@ -71,9 +96,8 @@ export class ExportAssignments implements Plugin {
     }
 
     const newCalendar = await res.json();
-    const calendarId = newCalendar.id;
+    calendarId = newCalendar.id;
 
-    await this.storage.set("itlaCalendarId", calendarId);
     console.log(`[${this.name}] Calendar created succesfully: ${calendarId}`);
 
     return calendarId;
