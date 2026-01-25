@@ -312,7 +312,7 @@
     class ExportAssignments {
         name = "ExportAssignments";
         token;
-        url = "https://plataformavirtual.itla.edu.do/calendar/view.php?view=upcoming";
+        url = "https://aulavirtual.itla.edu.do/calendar/view.php?view=upcoming";
         storage = new MonkeyStorage();
         exported = [];
         constructor(token) {
