@@ -4,7 +4,7 @@
 // @version      1.2.0-beta
 // @description  Suite modular de herramientas para mejorar la experiencia en la plataforma virtual del ITLA.
 // @author       JosueIsOffline
-// @match        https://aulavirtual.itla.edu.do/*
+// @match        https://plataformavirtual.itla.edu.do/*
 // @grant        GM_registerMenuCommand
 // @grant        GM_xmlhttpRequest
 // @grant        GM_getResourceText
@@ -108,7 +108,7 @@
             }
             return button;
         }
-        static isOnPage(urlPattern = "https://aulavirtual.itla.edu.do/") {
+        static isOnPage(urlPattern = "https://plataformavirtual.itla.edu.do/") {
             const pattern = urlPattern.replace(/\*/g, ".*").replace(/\?/g, "\\?");
             const regex = new RegExp(pattern);
             return regex.test(window.location.href);
@@ -252,7 +252,7 @@
         name = "AutoLogin";
         storage = new MonkeyStorage();
         shouldRun() {
-            return DOM.isOnPage("https://aulavirtual.itla.edu.do/login/*");
+            return DOM.isOnPage("https://plataformavirtual.itla.edu.do/login/*");
         }
         async init() {
             const creds = await this.asycAskCredentials();
@@ -298,7 +298,7 @@
             }
             const userInput = DOM.getInput("username");
             const passInput = DOM.getInput("password");
-            const loginBtn = DOM.getButton("loginbtn");
+            const loginBtn = DOM.getButton("Log in");
             if (userInput && passInput && loginBtn) {
                 DOM.fillInput(userInput, user);
                 DOM.fillInput(passInput, pass);
@@ -312,7 +312,7 @@
     class ExportAssignments {
         name = "ExportAssignments";
         token;
-        url = "https://aulavirtual.itla.edu.do/calendar/view.php?view=upcoming";
+        url = "https://plataformavirtual.itla.edu.do/calendar/view.php?view=upcoming";
         storage = new MonkeyStorage();
         exported = [];
         constructor(token) {
