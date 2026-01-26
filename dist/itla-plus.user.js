@@ -483,7 +483,7 @@
         name = "CoursePointsTracker";
         url = "";
         shouldRun() {
-            return DOM.isOnPage("https://aulavirtual.itla.edu.do/");
+            return DOM.isOnPage("https://aulavirtual.itla.edu.do/course/view.php?id=*");
         }
         async init() {
             const grades = await this.getGrades();
